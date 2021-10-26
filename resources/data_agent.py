@@ -2,6 +2,7 @@ import os
 import logging
 import json
 import requests
+from datetime import datetime
 from flask_restful import Resource
 from flask_restful import request
 from common import push_event
@@ -40,7 +41,11 @@ class Issue(Resource):
         logging.debug(json.dumps(event_obj, indent=4))
 
         # TODO Get delay by comparing the current time and event_obj.pushTime
-        #push_event(json.dumps(event_obj), delay=2000)
+        target_time = datetime.strptime(rule_json['exeTime'], "%Y-%m-%dT%H:%M:%S%z")
+        now = datetime.now(tz=target_time.tzinfo)
+        diff = target_time - now
+        delay = 0 if diff.total_seconds() <= 0 else diff.total_seconds
+        push_event(json.dumps(event_obj), delay=delay)
 
         executor_res = requests.post(STRATEGY_EXECUTOR_URL, json.dumps(event_obj))
         logging.debug(f'res.status: {executor_res.status_code}')
