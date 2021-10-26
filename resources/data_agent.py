@@ -8,6 +8,7 @@ from common import push_event
 
 logger = logging.getLogger('data_cache')
 RULE_HANDLER_URL = os.environ.get('RULE_HANDLER_URL', 'http://127.0.0.1:5000/rulehandler')
+STRATEGY_EXECUTOR_URL = os.environ.get('STRATEGY_EXECUTOR_URL', 'http://127.0.0.1:8002/api/Executor/execute-event/')
 
 class Issue(Resource):
     def post(self):
@@ -36,8 +37,14 @@ class Issue(Resource):
             'pushTime': rule_json['exeTime'],
         }
 
+        logging.debug(json.dumps(event_obj, indent=4))
+
         # TODO Get delay by comparing the current time and event_obj.pushTime
-        push_event(json.dumps(event_obj), delay=2000)
+        #push_event(json.dumps(event_obj), delay=2000)
+
+        executor_res = requests.post(STRATEGY_EXECUTOR_URL, json.dumps(event_obj))
+        logging.debug(f'res.status: {executor_res.status_code}')
+        logging.debug(f'res.text: {executor_res.text}')
         return "", 200
 
     def get(self):
