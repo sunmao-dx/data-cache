@@ -44,12 +44,12 @@ class Issue(Resource):
         target_time = datetime.strptime(rule_json['exeTime'], "%Y-%m-%dT%H:%M:%S%z")
         now = datetime.now(tz=target_time.tzinfo)
         diff = target_time - now
-        delay = 0 if diff.total_seconds() <= 0 else diff.total_seconds
+        delay = 0 if diff.total_seconds() <= 0 else diff.total_seconds()
         push_event(json.dumps(event_obj), delay=delay)
 
-        executor_res = requests.post(STRATEGY_EXECUTOR_URL, json.dumps(event_obj))
-        logging.debug(f'res.status: {executor_res.status_code}')
-        logging.debug(f'res.text: {executor_res.text}')
+        #executor_res = requests.post(STRATEGY_EXECUTOR_URL, json.dumps(event_obj))
+        #logging.debug(f'res.status: {executor_res.status_code}')
+        #logging.debug(f'res.text: {executor_res.text}')
         return "", 200
 
     def get(self):
