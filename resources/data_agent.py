@@ -52,6 +52,7 @@ class Issue(Resource):
                 'targetLabel': target_label,
                 'targetAssigneeID': target_assignee_id,
                 'pushTime': rule_json['exeTime'],
+                'repoInfo': request.json['repoInfo']
             }
 
 
