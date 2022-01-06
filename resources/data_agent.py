@@ -31,6 +31,8 @@ class Issue(Resource):
             'issueContent': request.json['issueContent'],
         }
 
+        repoInfo = request.json['repoInfo']
+
         res = requests.post(RULE_HANDLER_URL, json=rule_req_obj)
         if res.status_code >= 300:
             logger.error(f'error status_code: {res.status_code}, content: {res.text}')
@@ -52,7 +54,7 @@ class Issue(Resource):
                 'targetLabel': target_label,
                 'targetAssigneeID': target_assignee_id,
                 'pushTime': rule_json['exeTime'],
-                'repoInfo': request.json['repoInfo']
+                'repoInfo': repoInfo
             }
 
 
