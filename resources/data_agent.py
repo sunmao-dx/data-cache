@@ -18,6 +18,7 @@ class Issue(Resource):
         #  it into an empty string, find out why
         #  res = requests.post(RULE_HANDLER_URL, json=json.dumps(request.json, indent=4))
 
+        repoInfo = request.json['repoInfo']
 
         rule_req_obj = {
             'issueID': request.json['issueID'],
@@ -29,9 +30,8 @@ class Issue(Resource):
             'issueLabel': request.json['issueLabel'],
             'issueTitle': request.json['issueTitle'],
             'issueContent': request.json['issueContent'],
+            'repoInfo': repoInfo,
         }
-
-        repoInfo = request.json['repoInfo']
 
         res = requests.post(RULE_HANDLER_URL, json=rule_req_obj)
         if res.status_code >= 300:
