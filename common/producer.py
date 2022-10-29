@@ -6,7 +6,7 @@ RMQ_VHOST = os.environ.get('RMQ_VHOST', '/')
 RMQ_USER = os.environ.get('RMQ_USER', 'event-platform')
 RMQ_PASS = os.environ.get('RMQ_PASS', 'opensource_at_123')
 QUEUE_NAME = os.environ.get('RMQ_QUEUE_NAME', 'gitee_data_processing')
-EXCHANGE_NAME = 'delayed_exchange'
+EXCHANGE_NAME = os.environ.get('EXCHANGE_NAME', 'delayed_exchange')
 
 credentials = pika.PlainCredentials(RMQ_USER, RMQ_PASS)
 
