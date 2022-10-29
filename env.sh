@@ -1,0 +1,6 @@
+export RMQ_QUEUE_NAME="gitee_data_processing"
+export RMQ_HOST="127.0.0.1"
+export RMQ_VHOST="/"
+export RMQ_USER="event-platform"
+export RMQ_PASS="xxxx"
+export RMQ_EXCHANGE_NAME="delayed_exchange"
