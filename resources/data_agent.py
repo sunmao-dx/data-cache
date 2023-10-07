@@ -34,8 +34,7 @@ class Issue(Resource):
         }
 
         res = requests.post(RULE_HANDLER_URL, json=rule_req_obj)
-        print("print messages for debugging")
-        print(res)
+        logger.error(f'print messages for debugging: res')
         if res.status_code >= 300:
             logger.error(f'error status_code: {res.status_code}, content: {res.text}')
             return "Internal Error", 500
